@@ -1,39 +1,35 @@
 package com.example.HBES.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+
 @Entity
-@Table(name = "usuario")
+@Table(name= "Usuario")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class usuarioModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id_usuario;
 
-    @Column(unique = true, length = 10, nullable = false )
-    private int run;
+    @Column(unique = true, length = 10, nullable = false)
+    private Integer run;
 
-    @Column(nullable = false)
+    @Column(unique = false, length = 40, nullable = false)
     private String nombre;
 
-    @Column(nullable = false)
+    @Column(unique = false, length = 50, nullable = false)
     private String correo;
 
-    @Column(nullable = true, length = 9)
-    private String telefono;
-
-    @Column(nullable = false)
+    @Column(unique = false, length = 60, nullable = false)
     private String direccion;
+
+    @Column(unique = false, length = 11, nullable = true)
+    private String telefono;
 }
