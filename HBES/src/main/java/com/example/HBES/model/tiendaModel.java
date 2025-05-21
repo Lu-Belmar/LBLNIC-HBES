@@ -1,4 +1,4 @@
-package com.example.HBES.controller;
+package com.example.HBES.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

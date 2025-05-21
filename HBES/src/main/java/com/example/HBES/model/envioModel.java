@@ -15,4 +15,6 @@ public class envioModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_envio;
     
+    @Column(nullable = false)
+    private String direccion;
 }
