@@ -32,14 +32,23 @@ public class usuarioController {
         return ResponseEntity.ok(usuarios);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<?> buscarUsuarioById(@PathVariable int id){
-        if (usuarioService.getById(id) == null) {
+        if (usuarioService.getUsuarioById(id) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el usuario");
         } else {
-            return ResponseEntity.ok(usuarioService.getById(id)) ;
+            return ResponseEntity.ok(usuarioService.getUsuarioById(id)) ;
         }
         
+    }
+
+    @GetMapping("/getByName/{nombre}")
+    public ResponseEntity<?> buscarUsuarioByNombre(@PathVariable String nombre){
+        if (usuarioService.getUsuarioByNombre(nombre).isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra usuario con este nombre");           
+        } else {
+            return ResponseEntity.ok(usuarioService.getUsuarioByNombre(nombre)) ;
+        }
     }
 
     @PostMapping("/add")
@@ -57,7 +66,7 @@ public class usuarioController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteUsuario(@PathVariable int id){
+    public ResponseEntity<?> borrarUsuario(@PathVariable int id){
         try {
             usuarioService.deleteUsuario(id);
             return ResponseEntity.noContent().build();

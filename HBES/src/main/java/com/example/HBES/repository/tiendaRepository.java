@@ -3,10 +3,10 @@ package com.example.HBES.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.HBES.model.ventaModel;
+import com.example.HBES.model.tiendaModel;
 
 
 @Repository
-public interface tiendaRepository extends JpaRepository<ventaModel, Integer>{
+public interface tiendaRepository extends JpaRepository<tiendaModel, Integer>{
 
 }

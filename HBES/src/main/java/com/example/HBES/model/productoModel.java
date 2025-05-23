@@ -17,9 +17,6 @@ public class productoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_producto;
 
-    @Column(unique = true, nullable = false)
-    private int cod_barra;
-
     @Column(nullable = false)
     private String nombre;
 
