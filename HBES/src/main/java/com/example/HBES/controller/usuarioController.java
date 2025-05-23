@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.HBES.model.usuarioModel;
+import com.example.HBES.model.Producto;
+import com.example.HBES.model.Usuario;  
 import com.example.HBES.service.usuarioService;
 
 @RestController
@@ -23,41 +24,56 @@ public class usuarioController {
     @Autowired
     private usuarioService usuarioService;
 
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<Usuario> getUsuarioWithProductos(@PathVariable Long usuarioId) {
+        Usuario usuario = usuarioService.getUsuarioWithProductos(usuarioId);
+        return ResponseEntity.ok(usuario);
+    }
+
     @GetMapping
-    public ResponseEntity<List<usuarioModel>> listarUsuarios(){
-        List<usuarioModel> usuarios = usuarioService.getUsuarios();
+    public ResponseEntity<List<Usuario>> listarUsuarios(){
+        List<Usuario> usuarios = usuarioService.getUsuarios();
         if (usuarios.isEmpty()) {
             return ResponseEntity.noContent().build();    
         }
         return ResponseEntity.ok(usuarios);
     }
-
-    @GetMapping("/get/{id}")
+/* 
+    @GetMapping("/getById/{id}")
     public ResponseEntity<?> buscarUsuarioById(@PathVariable int id){
-        if (usuarioService.getById(id) == null) {
+        if (usuarioService.getUsuarioById(id) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el usuario");
         } else {
-            return ResponseEntity.ok(usuarioService.getById(id)) ;
+            return ResponseEntity.ok(usuarioService.getUsuarioById(id)) ;
         }
         
     }
+*/
+    @GetMapping("/getByName/{nombre}")
+    public ResponseEntity<?> buscarUsuarioByNombre(@PathVariable String nombre){
+        if (usuarioService.getUsuarioByNombre(nombre).isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra usuario con este nombre");           
+        } else {
+            return ResponseEntity.ok(usuarioService.getUsuarioByNombre(nombre)) ;
+        }
+    }
 
     @PostMapping("/add")
-    public ResponseEntity<usuarioModel> crearUsuario(@RequestBody usuarioModel usuario){
+    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario){
         return ResponseEntity.ok(usuarioService.createUsuario(usuario));
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<?> actualizarUsuario(@PathVariable int id,@RequestBody usuarioModel usuario){
+    public ResponseEntity<?> actualizarUsuario(@PathVariable int id,@RequestBody Usuario usuario){
         if (usuarioService.updateUsuario(usuario,id) == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el usuario para actualizalo");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el usuario para actualizarlo");
         }else{
-            return ResponseEntity.ok(usuario);
+            return ResponseEntity.ok(usuarioService.getUsuarioById(id));
         }
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteUsuario(@PathVariable int id){
+    public ResponseEntity<?> borrarUsuario(@PathVariable int id){
         try {
             usuarioService.deleteUsuario(id);
             return ResponseEntity.noContent().build();
