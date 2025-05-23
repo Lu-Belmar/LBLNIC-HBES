@@ -22,8 +22,12 @@ public class usuarioService {
         return usuarioRepository.findAll();
     }
 
-    public usuarioModel getById(int id){
+    public usuarioModel getUsuarioById(int id){
         return usuarioRepository.findById(id).get();
+    }
+
+    public List<usuarioModel> getUsuarioByNombre(String nombre){
+        return usuarioRepository.findByNombre(nombre);      
     }
 
     public usuarioModel createUsuario(usuarioModel usuario){
@@ -33,7 +37,7 @@ public class usuarioService {
     public usuarioModel updateUsuario(usuarioModel usuario, int id){
         if (usuarioRepository.existsById(id)) {
             usuarioRepository.save(usuario);
-            return usuario;
+            return usuarioRepository.getById(id);
         }else{
             return null;
         }
@@ -42,4 +46,8 @@ public class usuarioService {
     public void deleteUsuario(int id){
         usuarioRepository.deleteById(id);
     } 
+
+    public void createCarritoUsuario(){
+
+    }
 }
