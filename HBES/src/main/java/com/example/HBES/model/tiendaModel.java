@@ -30,7 +30,7 @@ public class tiendaModel {
     @Column (unique = false, length = 11, nullable = false)
     private String telefono;
 
-    
+
 }
 
 

@@ -10,36 +10,35 @@ import com.example.HBES.repository.envioRepository;
 
 import jakarta.transaction.Transactional;
 
-//@Service
-//@Transactional
+@Service
+@Transactional
+public class envioService {
 
-
-/*public class envioService {
-
-    public List<envioModel> getProductos(){
-        return productoRepository.findAll();
+    @Autowired envioRepository envioRepository;
+    public List<envioModel> getEnvios(){
+        return envioRepository.findAll();
     }
 
-    public productoModel getProductoById(int id){
-        return productoRepository.findById(id).get();
+    public productoModel getEnvios(int id_envio){
+        return envioRepository.findById(id_envio).get();
     }
 
-    public List<productoModel> getProductoByNombre(String nombre){
+    public List<envioModel> getProductoByNombre(String nombre){
         return productoRepository.findByNombre(nombre);
     }
 
-    public List<productoModel> getProductoByCategoria(String categoria){
+    public List<envioModel> getProductoByCategoria(String categoria){
         return productoRepository.findByCategoria(categoria);
     }
 
-    public productoModel createProducto(productoModel producto){
+    public  List<envioModel> createProducto(productoModel producto){
         return productoRepository.save(producto);        
     }
 
-    public productoModel updateProducto(productoModel producto, int id){
+    public envioModel updateEnvio(productoModel producto, int id){
         int x = 0;
-        if (productoRepository.existsById(id)){
-            productoRepository.save(producto);
+        if envioRepository.existsById(id)){
+            enviooRepository.save(producto);
             return productoRepository.getById(id);
         } else {
             return null;
@@ -51,4 +50,4 @@ import jakarta.transaction.Transactional;
     }
     
 
-}*/
+}

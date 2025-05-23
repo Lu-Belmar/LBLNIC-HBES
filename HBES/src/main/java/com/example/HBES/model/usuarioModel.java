@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -35,4 +36,8 @@ public class usuarioModel {
 
     @Column(unique = false, length = 11, nullable = true)
     private String telefono;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<productoModel> pedidos;
+
 }
