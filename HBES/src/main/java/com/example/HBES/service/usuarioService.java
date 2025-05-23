@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.HBES.model.usuarioModel;
+import com.example.HBES.model.Producto;
+import com.example.HBES.model.Usuario;
 import com.example.HBES.repository.usuarioRepository;
 
 import jakarta.transaction.Transactional;
@@ -18,22 +19,32 @@ public class usuarioService {
     @Autowired
     private usuarioRepository usuarioRepository;
 
-    public List<usuarioModel> getUsuarios() {
+    public Usuario getUsuarioWithProductos(Long usuarioId) {
+
+        return usuarioRepository.findUsuarioWithProductos(usuarioId)
+            .orElseThrow(() -> new RuntimeException("Producto no encontrado")); 
+    }
+
+    public List<Usuario> getUsuarios() {
         return usuarioRepository.findAll();
     }
 
-    public usuarioModel getById(int id){
+    public Usuario getUsuarioById(int id){
         return usuarioRepository.findById(id).get();
     }
 
-    public usuarioModel createUsuario(usuarioModel usuario){
+    public List<Usuario> getUsuarioByNombre(String nombre){
+        return usuarioRepository.findByNombre(nombre);      
+    }
+
+    public Usuario createUsuario(Usuario usuario){
         return usuarioRepository.save(usuario);
     }
 
-    public usuarioModel updateUsuario(usuarioModel usuario, int id){
+    public Usuario updateUsuario(Usuario usuario, int id){
         if (usuarioRepository.existsById(id)) {
             usuarioRepository.save(usuario);
-            return usuario;
+            return usuarioRepository.getById(id);
         }else{
             return null;
         }
@@ -42,4 +53,8 @@ public class usuarioService {
     public void deleteUsuario(int id){
         usuarioRepository.deleteById(id);
     } 
+
+    public void createCarritoUsuario(){
+
+    }
 }
