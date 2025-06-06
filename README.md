@@ -5,3 +5,8 @@ Objetivos actuales de el proyecto
   - Crear Repositories
   - Crear Services
   - Crear Controllers
+
+|||||||||||||||||
+
+  - Añadir atributo STOCK a producto
+  - Realizar reglas de negocio (carrito, 
