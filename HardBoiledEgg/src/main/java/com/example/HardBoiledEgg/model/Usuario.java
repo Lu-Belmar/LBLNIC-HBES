@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @MappedSuperclass
-@Table(name= "Usuario")
 @Data
-
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class Usuario {
 
     @Id

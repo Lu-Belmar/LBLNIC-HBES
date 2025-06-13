@@ -27,7 +27,7 @@ public class Empleado extends Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private Integer Salario;
 
     
