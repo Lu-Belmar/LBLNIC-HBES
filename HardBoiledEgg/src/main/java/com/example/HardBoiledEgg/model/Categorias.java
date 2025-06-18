@@ -1,33 +1,34 @@
 package com.example.HardBoiledEgg.model;
 
+import java.util.List;
 import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Empleado")
+@Table(name = "Categorias")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name ="TYPE", discriminatorType= DiscriminatorType.STRING, length = 20)
-public class Empleado extends Usuario {
+public class Categorias {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private Integer Salario;
+    @Column(nullable = false, unique = true)
+    private String nombre;
+    
+    private String descripcion;
+    
+    @OneToMany(mappedBy = "categoria")
+    private List<Producto> productos;
 
 }
