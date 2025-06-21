@@ -9,7 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+@Entity
+@Table(name = "Venta")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Venta {
 
 }

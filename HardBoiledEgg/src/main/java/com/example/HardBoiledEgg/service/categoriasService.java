@@ -1,7 +1,6 @@
 package com.example.HardBoiledEgg.service;
 
 import org.springframework.stereotype.Service;
-
 import jakarta.transaction.Transactional;
 
 @Service
