@@ -21,4 +21,12 @@ public class Tienda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
+    private Integer telefono;
+
+    @Column(nullable = false)
+    private String correo;
+
+
+    
 }
