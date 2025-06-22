@@ -34,4 +34,7 @@ public class Cliente extends Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @OneToOne
+    @JoinColumn(name = "direccion_id")
+    private Direccion direccion;
 }

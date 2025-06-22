@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,4 +32,7 @@ public class Empleado extends Usuario {
     @Column(nullable = false)
     private Integer Salario;
 
+    @OneToOne
+    @JoinColumn(name = "direccion_id")
+    private Direccion direccion;
 }

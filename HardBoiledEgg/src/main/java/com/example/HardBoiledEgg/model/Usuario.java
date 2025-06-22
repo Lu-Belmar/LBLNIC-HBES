@@ -1,6 +1,5 @@
 package com.example.HardBoiledEgg.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,9 +28,6 @@ public abstract class Usuario {
 
     @Column(unique = false, length = 50, nullable = false)
     private String correo;
-
-    @Column(unique = false, length = 60, nullable = false)
-    private String direccion;
 
     @Column(unique = false, length = 11, nullable = true)
     private String telefono;
