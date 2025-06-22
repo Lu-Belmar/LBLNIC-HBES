@@ -30,8 +30,8 @@ public class Envio {
     
     @Column(nullable = false)
     private String direccion;
-    
+
     @OneToOne
-    @JoinColumn(name = "id_venta")
+    @JoinColumn(name = "id_venta",nullable = false)
     private Venta venta;
 }

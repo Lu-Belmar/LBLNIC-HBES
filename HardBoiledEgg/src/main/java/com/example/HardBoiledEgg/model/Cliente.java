@@ -37,4 +37,6 @@ public class Cliente extends Usuario {
     @OneToOne
     @JoinColumn(name = "direccion_id")
     private Direccion direccion;
+    @OneToMany(mappedBy = "cliente")
+    private List<Venta> ventas;
 }

@@ -37,7 +37,7 @@ public class Direccion {
     private Integer entidadId;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "tipo_entidad",nullable = false)
     private TipoEntidad tipoentidad;
 
     public enum TipoEntidad{
@@ -71,5 +71,5 @@ public class Direccion {
     @JoinColumn(name = "tienda_id")
     private Tienda tienda;
 
-    
+
 }
