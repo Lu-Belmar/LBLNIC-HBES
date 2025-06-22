@@ -1,5 +1,6 @@
 package com.example.HardBoiledEgg.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
