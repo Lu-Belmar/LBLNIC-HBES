@@ -31,10 +31,4 @@ public class Cliente extends Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Direccion> direcciones;
-
-    @OneToMany(mappedBy = "cliente")
-    private List<Venta> ventas;
-
 }
