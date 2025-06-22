@@ -38,4 +38,8 @@ public class Producto {
     @JoinColumn(name = "categoria_id")
     private Categorias categoria;
 
+    @ManyToOne
+    @JoinColumn(name = "inventario_id")
+    private InventarioTienda inventario;
+
 }

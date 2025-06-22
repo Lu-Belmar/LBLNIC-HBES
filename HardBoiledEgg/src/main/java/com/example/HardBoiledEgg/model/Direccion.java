@@ -32,7 +32,7 @@ public class Direccion {
 
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_entidad")
+    @Column(name = "tipo_entidad",nullable = false)
     private TipoEntidad tipoentidad;
 
     public enum TipoEntidad{
