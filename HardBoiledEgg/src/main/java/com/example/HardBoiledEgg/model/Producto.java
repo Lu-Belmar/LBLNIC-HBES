@@ -1,5 +1,7 @@
 package com.example.HardBoiledEgg.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,8 +40,7 @@ public class Producto {
     @JoinColumn(name = "categoria_id")
     private Categorias categoria;
 
-    @ManyToOne
-    @JoinColumn(name = "inventario_id")
-    private InventarioTienda inventario;
+    @OneToMany(mappedBy = "producto")
+    private List<InventarioTienda> inventario;
 
 }
