@@ -14,11 +14,14 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
 
 @Entity
 @Table(name = "Empleado")
 @Data
+@EqualsAndHashCode(callSuper=false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
