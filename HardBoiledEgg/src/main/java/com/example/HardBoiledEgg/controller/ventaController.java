@@ -41,10 +41,10 @@ public class ventaController {
         }
     }
      
-    @PostMapping("/add")
+  /*   @PostMapping("/add")
     public ResponseEntity<Venta> creaVenta(@RequestBody Venta venta){
         return ResponseEntity.ok(ventaService.createVenta(venta));
-    }    
+    }    */
     
     @PostMapping("/update/{id}")
     public ResponseEntity<?> actualizarVenta(@PathVariable int id,@RequestBody Venta venta){
