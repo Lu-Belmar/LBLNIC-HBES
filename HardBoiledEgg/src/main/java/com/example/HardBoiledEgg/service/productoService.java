@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.HardBoiledEgg.model.Categorias;
 import com.example.HardBoiledEgg.model.Producto;
 import com.example.HardBoiledEgg.repository.productoRepository;
 
@@ -48,7 +49,7 @@ public class productoService {
         return productorepository.findByNombre(nombre);
     }
 
-    public List<Producto> getProductoByCategoria(String categoria){
+    public List<Producto> getProductoByCategoria(Categorias categoria){
         return productorepository.findByCategoria(categoria);
     }
 

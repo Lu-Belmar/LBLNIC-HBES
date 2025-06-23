@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.HardBoiledEgg.model.Cliente;
 import com.example.HardBoiledEgg.service.clienteService;
 
+@RequestMapping("api/cliente")
 public class clienteController {
     @Autowired
     private clienteService clienteService;
@@ -28,7 +30,7 @@ public class clienteController {
     }   
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<?> buscar_ById(@PathVariable int id){
+    public ResponseEntity<?> buscarClienteById(@PathVariable int id){
         if (clienteService.getClienteById(id) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el Cliente");
         } else {
@@ -37,7 +39,7 @@ public class clienteController {
     }
      
     @PostMapping("/add")
-    public ResponseEntity<Cliente> creaVenta(@RequestBody Cliente cliente){
+    public ResponseEntity<Cliente> creaCliente(@RequestBody Cliente cliente){
         return ResponseEntity.ok(clienteService.createCliente(cliente));
     }    
     

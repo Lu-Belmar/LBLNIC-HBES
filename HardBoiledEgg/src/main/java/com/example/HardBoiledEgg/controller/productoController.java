@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.HardBoiledEgg.model.Categorias;
 import com.example.HardBoiledEgg.model.Producto;
 import com.example.HardBoiledEgg.service.productoService;
 
@@ -58,7 +59,7 @@ public class productoController {
     }
 
     @GetMapping("/getByCategoria/{categoria}")
-    public ResponseEntity<?> buscarUsuarioByNombre(@PathVariable String categoria){
+    public ResponseEntity<?> buscarUsuarioByNombre(@PathVariable Categorias categoria){
         if (productoService.getProductoByCategoria(categoria).isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra producto en esta categoria");           
         } else {
