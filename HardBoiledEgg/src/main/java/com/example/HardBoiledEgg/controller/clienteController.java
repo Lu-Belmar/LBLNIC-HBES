@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.HardBoiledEgg.model.Cliente;
 import com.example.HardBoiledEgg.service.clienteService;
 
+@RestController
 @RequestMapping("api/cliente")
 public class clienteController {
     @Autowired
