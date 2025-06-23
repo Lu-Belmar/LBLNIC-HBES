@@ -10,13 +10,16 @@ import com.example.HardBoiledEgg.model.Producto;
 import com.example.HardBoiledEgg.repository.inventariotiendaRepository;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class inventariotiendaService {
 
     @Autowired 
     private inventariotiendaRepository inventariotiendarepository;
+    private final productoService productoService;
 
     public List<InventarioTienda> getInventarioTienda(){
         return inventariotiendarepository.findAll();
@@ -45,8 +48,10 @@ public class inventariotiendaService {
         inventariotiendarepository.deleteById(id);
     } 
 
-    public List<InventarioTienda> getInventarioTiendaByProducto(Producto producto_id){
-        return inventariotiendarepository.findByProducto(producto_id);
+    public List<InventarioTienda> getInventarioTiendaByProducto(int id){
+        
+        Producto producto = productoService.getProductoById(id);
+        return inventariotiendarepository.findByProducto(producto);
     }
 
 }
