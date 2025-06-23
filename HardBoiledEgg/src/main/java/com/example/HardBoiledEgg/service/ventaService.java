@@ -26,12 +26,8 @@ public class ventaService {
         return ventaRepository.findById(id).get();
     } 
 
+    //;eter la lógica pa que reste el inventario al hacer ventas 
     public Venta createVenta(Venta venta){
-        if (inventariotiendaService.get {
-            
-        } else {
-            
-        }
         return ventaRepository.save(venta);
     }
 

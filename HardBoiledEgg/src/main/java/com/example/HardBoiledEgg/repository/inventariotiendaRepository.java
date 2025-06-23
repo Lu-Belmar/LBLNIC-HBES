@@ -11,5 +11,5 @@ import com.example.HardBoiledEgg.model.Producto;
 @Repository
 public interface inventariotiendaRepository extends JpaRepository<InventarioTienda, Integer> {
     
-    List<InventarioTienda> findByProducto(Producto producto_id);
+    List<InventarioTienda> findByProducto(Producto producto);
 }

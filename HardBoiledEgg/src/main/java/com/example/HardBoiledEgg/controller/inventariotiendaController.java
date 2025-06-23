@@ -15,18 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.HardBoiledEgg.model.InventarioTienda;
-import com.example.HardBoiledEgg.model.Producto;
-import com.example.HardBoiledEgg.repository.productoRepository;
 import com.example.HardBoiledEgg.service.inventariotiendaService;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
 @RequestMapping("api/inventariotienda")
 public class inventariotiendaController {
+
     @Autowired
     private inventariotiendaService inventariotiendaservice;
-    private productoRepository productoRepository;
+
 
     @GetMapping
     public ResponseEntity<List<InventarioTienda>> listarInventarioTienda() {
@@ -57,12 +56,12 @@ public class inventariotiendaController {
         
     }
     */
+
    @GetMapping("/getByProductox/{id}")
-    public List<InventarioTienda> buscarInventarioTiendaByProducto(@PathVariable int id) {
-        Producto rrr = productoRepository.findById(id).get() ;
-            return inventariotiendaservice.getInventarioTiendaByProducto(rrr);
-        
+    public ResponseEntity<?> buscarInventarioTiendaByProducto(@PathVariable int id) {
+            return ResponseEntity.ok(inventariotiendaservice.getInventarioTiendaByProducto(id));
     }
+
      
     @PostMapping("/add")
     public ResponseEntity<InventarioTienda> creaInventarioTienda(@RequestBody InventarioTienda inventariotienda){
