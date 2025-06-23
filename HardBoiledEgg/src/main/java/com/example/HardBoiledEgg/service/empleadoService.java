@@ -30,7 +30,7 @@ public class empleadoService {
 
     }
 
-    public Empleado updateEnvio(Empleado empleado, Integer id){
+    public Empleado updateEmpleado(Empleado empleado, Integer id){
         
         if (empleadorepository.existsById(id)){
             empleadorepository.save(empleado);

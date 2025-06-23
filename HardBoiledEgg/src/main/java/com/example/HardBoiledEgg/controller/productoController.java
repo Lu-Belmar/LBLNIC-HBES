@@ -1,5 +1,7 @@
 package com.example.HardBoiledEgg.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +22,13 @@ public class productoController {
 
     @Autowired
     private productoService productoService;
-
+/* 
     @GetMapping("/getById/{id}")
     public ResponseEntity<Producto> getProductoWithRelations(@PathVariable Long id) {
         Producto producto = productoService.getProductoWithRelations(id);
         return ResponseEntity.ok(producto);
     }
-/* 
+*/
     @GetMapping("/getById/{id}")
     public ResponseEntity<?> buscarProductoById(@PathVariable int id){
         if (productoService.getProductoById(id) == null) {
@@ -36,10 +38,10 @@ public class productoController {
         }
         
     }
-*/
+
     @GetMapping
     public ResponseEntity<List<Producto>> listarProductos(){
-        List<Producto> productos = productoService.getProductos();
+        List<Producto> productos = productoService.getProducto();
         if (productos.isEmpty()){
             return ResponseEntity.noContent().build();
         }
