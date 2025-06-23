@@ -28,10 +28,7 @@ public class Proveedores {
     private String nombre;
 
     @Column(nullable = false)
-    private String direccion;
-
-    @Column(nullable = false)
-    private int Telefono;
+    private Integer Telefono;
 
     @OneToMany (mappedBy = "proveedor")
     private List<Producto> Productos;
