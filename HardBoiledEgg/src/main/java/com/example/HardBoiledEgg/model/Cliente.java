@@ -1,10 +1,9 @@
 package com.example.HardBoiledEgg.model;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
+
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;

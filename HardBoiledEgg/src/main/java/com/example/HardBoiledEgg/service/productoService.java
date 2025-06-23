@@ -21,7 +21,7 @@ public class productoService {
         return productorepository.findAll();
     }
 
-    public Producto get_ById(Integer id){
+    public Producto getProductoById(Integer id){
         return productorepository.findById(id).get();
     }
 
@@ -43,4 +43,14 @@ public class productoService {
     public void deleteProducto(int id){
         productorepository.deleteById(id);
     }
+
+    public List<Producto> getProductoByNombre(String nombre){
+        return productorepository.findByNombre(nombre);
+    }
+
+    public List<Producto> getProductoByCategoria(String categoria){
+        return productorepository.findByCategoria(categoria);
+    }
+
+
 }
