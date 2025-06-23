@@ -21,10 +21,10 @@ public abstract class Usuario {
     @Column(unique = false, length = 40, nullable = false)
     private String nombre;
 
-    @Column(unique = false, length = 50, nullable = false)
+    @Column(unique = true, length = 50, nullable = false)
     private String correo;
 
-    @Column(unique = false, length = 11, nullable = true)
+    @Column(unique = true, length = 11, nullable = true)
     private String telefono;
 
 
