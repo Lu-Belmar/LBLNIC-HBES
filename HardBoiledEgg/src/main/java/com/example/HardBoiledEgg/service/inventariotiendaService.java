@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.HardBoiledEgg.model.InventarioTienda;
+import com.example.HardBoiledEgg.model.Producto;
 import com.example.HardBoiledEgg.repository.inventariotiendaRepository;
 
 import jakarta.transaction.Transactional;
@@ -43,4 +44,9 @@ public class inventariotiendaService {
     public void deleteInventarioTienda(int id){
         inventariotiendarepository.deleteById(id);
     } 
+
+    public List<InventarioTienda> getInventarioTiendaByProducto(Producto producto_id){
+        return inventariotiendarepository.findByProducto(producto_id);
+    }
+
 }

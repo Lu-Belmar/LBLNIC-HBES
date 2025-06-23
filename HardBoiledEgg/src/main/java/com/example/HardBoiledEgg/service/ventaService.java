@@ -16,6 +16,7 @@ public class ventaService {
 
     @Autowired
     private ventaRepository ventaRepository;
+    private inventariotiendaService inventariotiendaService;
 
     public List<Venta> getVentas(){
         return ventaRepository.findAll();
@@ -26,6 +27,11 @@ public class ventaService {
     } 
 
     public Venta createVenta(Venta venta){
+        if (inventariotiendaService.get {
+            
+        } else {
+            
+        }
         return ventaRepository.save(venta);
     }
 
@@ -41,4 +47,6 @@ public class ventaService {
     public void deleteVenta(int id){
         ventaRepository.deleteById(id);
     }
+
+    
 }

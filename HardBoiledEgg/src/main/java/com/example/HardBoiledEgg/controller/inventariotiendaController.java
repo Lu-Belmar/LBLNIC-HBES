@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.HardBoiledEgg.model.InventarioTienda;
+import com.example.HardBoiledEgg.model.Producto;
+import com.example.HardBoiledEgg.repository.productoRepository;
 import com.example.HardBoiledEgg.service.inventariotiendaService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("api/inventariotienda")
 public class inventariotiendaController {
     @Autowired
     private inventariotiendaService inventariotiendaservice;
+    private productoRepository productoRepository;
 
     @GetMapping
     public ResponseEntity<List<InventarioTienda>> listarInventarioTienda() {
@@ -38,6 +44,24 @@ public class inventariotiendaController {
         } else {
             return ResponseEntity.ok(inventariotiendaservice.getInventarioTiendaById(id)) ;
         }
+    }
+/* 
+    @GetMapping("/getByProducto/{id}")
+    public ResponseEntity<?> buscarInventarioTiendaByProducto(@PathVariable int id) {
+        if (productoRepository.findById(id) == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró tienda con este producto")
+        } else {
+            return inventariotiendaservice.getInventarioTiendaByProducto(productoRepository.findById(id));
+        }
+        
+        
+    }
+    */
+   @GetMapping("/getByProductox/{id}")
+    public List<InventarioTienda> buscarInventarioTiendaByProducto(@PathVariable int id) {
+        Producto rrr = productoRepository.findById(id).get() ;
+            return inventariotiendaservice.getInventarioTiendaByProducto(rrr);
+        
     }
      
     @PostMapping("/add")
@@ -63,4 +87,7 @@ public class inventariotiendaController {
             return ResponseEntity.notFound().build();
         } 
     }
+
+
+
 }
