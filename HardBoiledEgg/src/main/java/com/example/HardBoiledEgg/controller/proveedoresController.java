@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.HardBoiledEgg.model.Proveedores;
 import com.example.HardBoiledEgg.service.proveedoresService;
 
-
+@RestController
+@RequestMapping("api/proveedores")
 public class proveedoresController {
     @Autowired
     private proveedoresService proveedoresService;

@@ -27,7 +27,7 @@ public class Categorias {
     private String nombre;
     
     @Column(nullable = false)
-    private String desc;
+    private String descripcion;
 
     @OneToMany (mappedBy = "categoria")
     private List<Producto> Productos;
