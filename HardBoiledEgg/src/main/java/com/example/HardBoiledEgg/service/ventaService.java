@@ -25,16 +25,16 @@ public class ventaService {
     public Venta getVentaById(Integer id){
         return ventaRepository.findById(id).get();
     } 
-
+/* 
     public Venta createVenta(Venta venta){
-        if (inventariotiendaService.get {
+        if (inventariotiendaService.get) {
             
         } else {
             
         }
         return ventaRepository.save(venta);
     }
-
+*/
     public Venta updateVenta(Venta venta, int id){
         if (ventaRepository.existsById(id)) {
             return ventaRepository.save(venta);
