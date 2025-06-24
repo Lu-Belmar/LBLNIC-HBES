@@ -66,10 +66,11 @@ public class DataLoader implements CommandLineRunner{
     Faker faker = new Faker();
     Random random = new Random();   
     Set<String> generosUnicos = new HashSet<>();
+    String tiendacorreo = "EcoMarket@HardBoiledEgg.cl";
     while (generosUnicos.size() < 3) {
         generosUnicos.add(faker.book().genre());
     }
-
+    
     List<String> listaGeneros = new ArrayList<>(generosUnicos);
     
     for (int i = 0; i < 3; i++) {
@@ -95,13 +96,8 @@ public class DataLoader implements CommandLineRunner{
           producto.setMarca(faker.brand().sport());
           producto.setProveedor(proveedores);
           productorepository.save(producto);
-      }
-      
-  } 
-      
-  }
 
-  for (int i = 0; i < 3; i++){
+    for (int h = 0; h < 3; h++){
     String correo;
     String nombrefaker;
     String apellidofaker;
@@ -117,7 +113,8 @@ public class DataLoader implements CommandLineRunner{
     cliente.setTelefono(faker.number().numberBetween(900000000, 999999999));
     cliente.setCorreo(correo);
 
-    for (int x = 0; i<3; x++){
+
+    for (int x = 0; h<3; x++){
       String correo2;
       String nombrefaker2;
       String apellidofaker2;
@@ -130,10 +127,45 @@ public class DataLoader implements CommandLineRunner{
       Empleado empleado = new Empleado();
       empleado.setId(null);
       empleado.setCorreo(correo2);
-      empleado.setRun(null);
+      empleado.setRun(faker.number().numberBetween(80000000, 100000000));
       empleado.setNombre(nombrecompletofaker2);
+      empleado.setSalario(faker.number().numberBetween(10000, 20000));
+      empleado.setTelefono(faker.number().numberBetween(900000000, 999999999));
 
+      for (int y = 0; i<3; y++){
+        Tienda tienda = new Tienda();
+        tienda.setCorreo(tiendacorreo);
+        tienda.setTelefono(faker.number().numberBetween(900000000, 999999999));
+        
+        for (int z = 0; z<3; z++){
+          InventarioTienda inventarioTienda = new InventarioTienda();
+          inventarioTienda.setPrecioLocal(faker.number().numberBetween(1000, 50000));
+          inventarioTienda.setProducto(producto);
+          inventarioTienda.setStock(faker.number().numberBetween(1, 150));
+          inventarioTienda.setTienda(tienda);
+
+          for (int a = 0; h<3; a++){
+            
+            Direccion direccion = new Direccion();
+            direccion.setCalle(faker.location().publicSpace());
+            direccion.setCiudad(faker.country().capital());
+
+
+
+          }
+
+        }
+
+
+      }
     }
+  }
+
+          
+      }
+      
+  } 
+      
   }
 
 
