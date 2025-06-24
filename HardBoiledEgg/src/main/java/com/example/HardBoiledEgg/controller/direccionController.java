@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.HardBoiledEgg.model.Direccion;
+import com.example.HardBoiledEgg.model.DireccionCliente;
 import com.example.HardBoiledEgg.service.direccionService;
 
 @RestController
@@ -62,5 +64,12 @@ public class direccionController {
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         } 
+    }
+
+    @PostMapping("/clientes")
+    public DireccionCliente createDireccionCliente(
+            @RequestBody DireccionCliente direccion,
+            @RequestParam Integer clienteId) {
+        return direccionService.crearDireccionCliente(direccion, clienteId);
     }
 }
