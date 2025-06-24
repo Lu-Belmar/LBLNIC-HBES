@@ -71,7 +71,7 @@ public class DataLoader implements CommandLineRunner{
     Faker faker = new Faker();
     Random random = new Random();
 
-            // 1. Primero creamos algunas entidades principales
+            // CREACION DE ENTIDADES
         List<Cliente> clientes = crearClientes(faker, 5);
         List<Empleado> empleados = crearEmpleados(faker, 5);
         List<Tienda> tiendas = crearTiendas(faker, 4);
@@ -85,7 +85,7 @@ public class DataLoader implements CommandLineRunner{
 
 
         
-        // 2. Creamos direcciones asociadas
+        // SECCION DE DIRECCIONES
         crearDireccionesClientes(faker, clientes);
         crearDireccionesEmpleados(faker, empleados);
         crearDireccionesTiendas(faker, tiendas);
