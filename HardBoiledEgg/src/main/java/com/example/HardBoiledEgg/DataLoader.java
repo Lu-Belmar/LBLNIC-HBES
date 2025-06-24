@@ -33,10 +33,12 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Profile("dev")
@@ -68,17 +70,17 @@ public class DataLoader implements CommandLineRunner{
   public void run(String... args) throws Exception {
     Faker faker = new Faker();
     Random random = new Random();
-    
+
             // 1. Primero creamos algunas entidades principales
         List<Cliente> clientes = crearClientes(faker, 5);
         List<Empleado> empleados = crearEmpleados(faker, 5);
-        List<Tienda> tiendas = crearTiendas(faker, 3);
+        List<Tienda> tiendas = crearTiendas(faker, 4);
         List<Categorias> categorias = crearCategorias(faker, 5);
         List<Proveedores> proveedores = crearProveedores(faker, 8);
-        List<Producto> productos = crearProductos(faker, 20, categorias, proveedores);
+        List<Producto> productos = crearProductos(faker, 100, categorias, proveedores);
         crearInventarios(faker, productos, tiendas);
         List<InventarioTienda> inventarios = inventariotiendarepository.findAll();
-        List<Venta> ventas = crearVentas(faker, 50, clientes, productos,inventarios);
+        List<Venta> ventas = crearVentas(faker, 100, clientes, inventarios);
         crearEnvios(faker, ventas);
 
 
@@ -240,30 +242,35 @@ public class DataLoader implements CommandLineRunner{
 
 
 
-    private List<Venta> crearVentas(Faker faker, int cantidad, List<Cliente> clientes, List<Producto> productos, List<InventarioTienda> inventarios) {
+    private List<Venta> crearVentas(Faker faker, int cantidad, List<Cliente> clientes, List<InventarioTienda> todosInventarios) {
       List<Venta> ventas = new ArrayList<>();
       Random random = new Random();
-      
-      for (int i = 0; i < cantidad; i++) {
-          Venta venta = new Venta();
-          venta.setCliente(clientes.get(random.nextInt(clientes.size())));
-          InventarioTienda inventario;
-        do {
-            inventario = inventarios.get(random.nextInt(inventarios.size()));
-        } while (ventarepository.existsByInventario(inventario));
-          
-          // Calcular monto basado en productos (simulado)
-          int numProductos = random.nextInt(5) + 1; // 1-5 productos
-          int monto = 0;
-          for (int j = 0; j < numProductos; j++) {
-              monto += random.nextInt(20000) + 5000; // $5.000-$25.000 por producto
-          }
-          venta.setMonto(monto);
-          venta.setInventarioTienda(inventario);
-          ventas.add(ventarepository.save(venta));
-      }
-      return ventas;
-  }
+    List<InventarioTienda> inventariosDisponibles = todosInventarios.stream()
+        .filter(inv -> inv.getVenta() == null)
+        .collect(Collectors.toList());
+
+    if (inventariosDisponibles.size() < cantidad) {
+        throw new RuntimeException("No hay suficientes inventarios disponibles. Se necesitan " + 
+            cantidad + " pero solo hay " + inventariosDisponibles.size() + " disponibles.");
+    }
+    Collections.shuffle(inventariosDisponibles);
+
+    for (int i = 0; i < cantidad; i++) {
+        Venta venta = new Venta();
+        venta.setCliente(clientes.get(random.nextInt(clientes.size())));
+        
+        InventarioTienda inventario = inventariosDisponibles.get(i);
+        venta.setInventario(inventario);
+        
+        int cantidadProductos = random.nextInt(5) + 1;
+        venta.setMonto(inventario.getPrecioLocal() * cantidadProductos);
+
+        inventario.setVenta(venta);
+        
+        ventas.add(ventarepository.save(venta));
+    }
+    return ventas;
+}
 
       private void crearEnvios(Faker faker, List<Venta> ventas) {
         for (Venta venta : ventas) {

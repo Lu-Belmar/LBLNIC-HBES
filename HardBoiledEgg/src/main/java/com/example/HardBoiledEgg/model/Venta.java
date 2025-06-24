@@ -31,8 +31,8 @@ public class Venta {
     private int monto;
 
     @OneToOne
-    @JoinColumn
-    private InventarioTienda inventarioTienda;
+    @JoinColumn(name = "inventario_id")
+    private InventarioTienda inventario;
     
     @ManyToOne
     @JoinColumn(name = "id_cliente")

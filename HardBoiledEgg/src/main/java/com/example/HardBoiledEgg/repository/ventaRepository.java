@@ -9,5 +9,5 @@ import com.example.HardBoiledEgg.model.Venta;
 @Repository
 public interface ventaRepository extends JpaRepository<Venta, Integer>{
 
-    boolean existsByInventario(InventarioTienda inventario);
+    boolean existsByInventario(InventarioTienda inventariotienda);
 }
