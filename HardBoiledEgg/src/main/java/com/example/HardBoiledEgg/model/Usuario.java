@@ -25,7 +25,7 @@ public abstract class Usuario {
     private String correo;
 
     @Column(unique = true, length = 11, nullable = true)
-    private String telefono;
+    private Integer telefono;
 
 
 }
