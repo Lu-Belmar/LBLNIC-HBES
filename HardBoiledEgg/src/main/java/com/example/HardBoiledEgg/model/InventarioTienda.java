@@ -3,6 +3,7 @@ package com.example.HardBoiledEgg.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,7 +37,7 @@ public class InventarioTienda {
 
     @ManyToOne
     @JoinColumn(name = "producto_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Producto producto;
 
     @ManyToOne
@@ -45,5 +46,6 @@ public class InventarioTienda {
     private Tienda tienda;
 
     @OneToOne(mappedBy = "inventario")
+    @JsonManagedReference
     private Venta venta;
 }

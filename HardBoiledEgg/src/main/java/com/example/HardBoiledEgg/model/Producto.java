@@ -47,7 +47,7 @@ public class Producto {
     private Categorias categoria;
 
     @OneToMany(mappedBy = "producto")
-    @JsonManagedReference
+    @JsonBackReference
     private List<InventarioTienda> inventario;
 
 }

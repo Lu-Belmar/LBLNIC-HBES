@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+/* 
 
 @Profile("dev")
 @Component
@@ -294,8 +294,7 @@ public class DataLoader implements CommandLineRunner{
 
 
 
-
-
+*/
 /*      
 
 

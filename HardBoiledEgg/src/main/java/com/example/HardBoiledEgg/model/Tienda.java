@@ -40,7 +40,7 @@ public class Tienda {
     private Direccion direccion;
 
     @OneToMany(mappedBy = "tienda")
-
+    @JsonManagedReference
     private List<InventarioTienda> inventarios;
 
 }
