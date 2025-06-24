@@ -35,5 +35,5 @@ public class Proveedores {
 
     @OneToMany (mappedBy = "proveedor")
     @JsonManagedReference
-    private List<Producto> Productos;
+    private List<Producto> productos;
 }

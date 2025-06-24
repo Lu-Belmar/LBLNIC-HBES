@@ -35,11 +35,11 @@ public class InventarioTienda {
 
     @ManyToOne
     @JoinColumn(name = "producto_id")
-
+    @JsonBackReference
     private Producto producto;
 
     @ManyToOne
     @JoinColumn(name = "tienda_id")
-
+    @JsonBackReference
     private Tienda tienda;
 }
