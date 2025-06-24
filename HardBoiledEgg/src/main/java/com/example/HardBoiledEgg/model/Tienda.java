@@ -2,6 +2,8 @@ package com.example.HardBoiledEgg.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +38,9 @@ public class Tienda {
     @OneToOne
     @JoinColumn(name = "direccion_id")
     private Direccion direccion;
+
     @OneToMany(mappedBy = "tienda")
+
     private List<InventarioTienda> inventarios;
 
 }

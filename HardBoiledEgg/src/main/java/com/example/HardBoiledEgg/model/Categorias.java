@@ -1,6 +1,9 @@
 package com.example.HardBoiledEgg.model;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,5 +33,6 @@ public class Categorias {
     private String descripcion;
 
     @OneToMany (mappedBy = "categoria")
+    @JsonManagedReference
     private List<Producto> Productos;
 }

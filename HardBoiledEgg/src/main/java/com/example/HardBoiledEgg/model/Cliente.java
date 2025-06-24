@@ -3,6 +3,7 @@ package com.example.HardBoiledEgg.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
@@ -38,6 +39,8 @@ public class Cliente extends Usuario {
     @OneToOne
     @JoinColumn(name = "direccion_id")
     private Direccion direccion;
+
     @OneToMany(mappedBy = "cliente")
+
     private List<Venta> ventas;
 }

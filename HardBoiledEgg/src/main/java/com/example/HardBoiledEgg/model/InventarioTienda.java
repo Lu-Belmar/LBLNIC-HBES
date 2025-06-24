@@ -1,6 +1,9 @@
 package com.example.HardBoiledEgg.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,9 +35,11 @@ public class InventarioTienda {
 
     @ManyToOne
     @JoinColumn(name = "producto_id")
+
     private Producto producto;
 
     @ManyToOne
     @JoinColumn(name = "tienda_id")
+
     private Tienda tienda;
 }

@@ -23,7 +23,11 @@ public class productoService {
     }
 
     public Producto getProductoById(int id){
-        return productorepository.findById(id).get();
+        if (productorepository.findById(id).isPresent()) {
+            return productorepository.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     public Producto createProducto(Producto producto){

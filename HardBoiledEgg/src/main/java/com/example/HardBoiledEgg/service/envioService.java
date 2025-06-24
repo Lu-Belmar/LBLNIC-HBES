@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.HardBoiledEgg.model.Envio;
+
 import com.example.HardBoiledEgg.repository.envioRepository;
 
 import jakarta.transaction.Transactional;
@@ -22,8 +23,13 @@ public class envioService {
     }
 
     public Envio getEnvioById(Integer id){
-        return envioRepository.findById(id).get();
+        if (envioRepository.findById(id).isPresent()) {
+            return envioRepository.findById(id).get();
+        } else {
+            return null;
+        }  
     }
+
 
     public  Envio createEnvio(Envio envio){
         return envioRepository.save(envio);  

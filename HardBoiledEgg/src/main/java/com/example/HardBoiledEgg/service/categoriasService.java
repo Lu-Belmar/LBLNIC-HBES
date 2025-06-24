@@ -22,7 +22,11 @@ public class categoriasService {
     }
 
     public Categorias getCategoriasById(Integer id){
-        return categoriasrepository.findById(id).get();
+        if (categoriasrepository.findById(id).isPresent()) {
+            return categoriasrepository.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     public  Categorias createCategorias(Categorias categorias){

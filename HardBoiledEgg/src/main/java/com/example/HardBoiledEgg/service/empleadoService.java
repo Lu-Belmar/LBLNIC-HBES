@@ -22,7 +22,11 @@ public class empleadoService {
     }
 
     public Empleado getEmpleadoById(Integer id){
-        return empleadorepository.findById(id).get();
+        if (empleadorepository.findById(id).isPresent()) {
+            return empleadorepository.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     public  Empleado createEmpleado(Empleado empleado){

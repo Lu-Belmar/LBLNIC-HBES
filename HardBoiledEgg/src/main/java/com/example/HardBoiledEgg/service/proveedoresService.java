@@ -22,7 +22,11 @@ public class proveedoresService {
     }
 
     public Proveedores getProveedoresById(Integer id){
-        return proveedoresrepository.findById(id).get();
+        if (proveedoresrepository.findById(id).isPresent()) {
+            return proveedoresrepository.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     public  Proveedores createProveedores(Proveedores proveedores){

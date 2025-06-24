@@ -34,7 +34,7 @@ public class empleadoController {
     @GetMapping("/getById/{id}")
     public ResponseEntity<?> buscarEmpleadoById(@PathVariable int id){
         if (empleadoService.getEmpleadoById(id) == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró la _");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el Empleado");
         } else {
             return ResponseEntity.ok(empleadoService.getEmpleadoById(id)) ;
         }

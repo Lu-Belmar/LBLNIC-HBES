@@ -23,7 +23,11 @@ public class ventaService {
     }
 
     public Venta getVentaById(Integer id){
-        return ventaRepository.findById(id).get();
+        if (ventaRepository.findById(id).isPresent()) {
+            return ventaRepository.findById(id).get();
+        } else {
+            return null;
+        }
     } 
 
     //;eter la lógica pa que reste el inventario al hacer ventas 

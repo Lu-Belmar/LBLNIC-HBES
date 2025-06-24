@@ -23,7 +23,11 @@ public class tiendaService {
     }
 
     public Tienda getTiendaById(Integer id){
-        return tiendarepository.findById(id).get();
+        if (tiendarepository.findById(id).isPresent()) {
+            return tiendarepository.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     public Tienda createTienda(Tienda tienda){

@@ -1,5 +1,7 @@
 package com.example.HardBoiledEgg.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +31,7 @@ public class Venta {
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
+
     private Cliente cliente;
 }
  

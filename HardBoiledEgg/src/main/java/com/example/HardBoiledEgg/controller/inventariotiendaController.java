@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,22 +43,16 @@ public class inventariotiendaController {
             return ResponseEntity.ok(inventariotiendaservice.getInventarioTiendaById(id)) ;
         }
     }
-/* 
-    @GetMapping("/getByProducto/{id}")
-    public ResponseEntity<?> buscarInventarioTiendaByProducto(@PathVariable int id) {
-        if (productoRepository.findById(id) == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró tienda con este producto")
-        } else {
-            return inventariotiendaservice.getInventarioTiendaByProducto(productoRepository.findById(id));
-        }
-        
-        
-    }
-    */
 
-   @GetMapping("/getByProductox/{id}")
+
+   @GetMapping("/getByProducto/{id}")
     public ResponseEntity<?> buscarInventarioTiendaByProducto(@PathVariable int id) {
-            return ResponseEntity.ok(inventariotiendaservice.getInventarioTiendaByProducto(id));
+        
+        List<InventarioTienda> inventarios =inventariotiendaservice.getInventarioTiendaByProducto(id);
+        if (inventarios.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se existe este produto en ningún Inventario");    
+        }
+        return ResponseEntity.ok(inventarios);
     }
 
      

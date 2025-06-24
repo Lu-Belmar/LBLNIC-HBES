@@ -22,7 +22,11 @@ public class clienteService {
     }
 
     public Cliente getClienteById(Integer id){
-        return clienterepository.findById(id).get();
+        if (clienterepository.findById(id).isPresent()) {
+            return clienterepository.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     public  Cliente createCliente(Cliente cliente){

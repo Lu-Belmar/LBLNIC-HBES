@@ -23,7 +23,11 @@ public class direccionService {
     }
 
     public Direccion getDireccionById(Integer id){
-        return direccionrepository.findById(id).get();
+        if (direccionrepository.findById(id).isPresent()) {
+            return direccionrepository.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     public  Direccion createDireccion(Direccion direccion){
