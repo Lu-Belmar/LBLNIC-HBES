@@ -4,6 +4,9 @@ import com.example.HardBoiledEgg.controller.clienteController;
 import com.example.HardBoiledEgg.model.Categorias;
 import com.example.HardBoiledEgg.model.Cliente;
 import com.example.HardBoiledEgg.model.Direccion;
+import com.example.HardBoiledEgg.model.DireccionCliente;
+import com.example.HardBoiledEgg.model.DireccionEmpleado;
+import com.example.HardBoiledEgg.model.DireccionTienda;
 import com.example.HardBoiledEgg.model.Empleado;
 import com.example.HardBoiledEgg.model.Envio;
 import com.example.HardBoiledEgg.model.InventarioTienda;
@@ -64,7 +67,226 @@ public class DataLoader implements CommandLineRunner{
   @Override
   public void run(String... args) throws Exception {
     Faker faker = new Faker();
-    Random random = new Random();   
+    Random random = new Random();
+    
+            // 1. Primero creamos algunas entidades principales
+        List<Cliente> clientes = crearClientes(faker, 5);
+        List<Empleado> empleados = crearEmpleados(faker, 5);
+        List<Tienda> tiendas = crearTiendas(faker, 3);
+        List<Categorias> categorias = crearCategorias(faker, 5);
+        List<Proveedores> proveedores = crearProveedores(faker, 8);
+        List<Producto> productos = crearProductos(faker, 20, categorias, proveedores);
+        crearInventarios(faker, productos, tiendas);
+        List<Venta> ventas = crearVentas(faker, 50, clientes, productos);
+        crearEnvios(faker, ventas);
+
+
+        
+        // 2. Creamos direcciones asociadas
+        crearDireccionesClientes(faker, clientes);
+        crearDireccionesEmpleados(faker, empleados);
+        crearDireccionesTiendas(faker, tiendas);
+    }
+    
+    private List<Tienda> crearTiendas(Faker faker, int cantidad){
+      List<Tienda> tiendas = new ArrayList<>();
+      String tiendacorreo = "EcoMarket@HardBoiledEgg.cl";
+      for (int i = 0; i < cantidad; i++) {
+        Tienda t = new Tienda();
+        t.setCorreo(tiendacorreo);
+        t.setTelefono(faker.number().numberBetween(10000, 1000000));
+        tiendas.add(tiendarepository.save(t)); // Guardar cada tienda
+      }
+      return tiendas;
+    }
+
+    private List<Empleado> crearEmpleados(Faker faker, int cantidad){
+      List<Empleado> empleados = new ArrayList<>();
+      for (int i = 0; i < cantidad; i++) {
+        Empleado e = new Empleado();
+        e.setNombre(faker.name().fullName());
+        e.setCorreo(faker.internet().emailAddress());
+        e.setRun(faker.number().numberBetween(1000, 10000));
+        e.setTelefono(faker.number().numberBetween(10000, 1000000));
+        e.setSalario(faker.number().numberBetween(4219421, 900000));
+        empleados.add(empleadorepository.save(e));
+      }
+      return empleados;
+
+    }
+
+    private List<Cliente> crearClientes(Faker faker, int cantidad) {
+        List<Cliente> clientes = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            Cliente c = new Cliente();
+            c.setNombre(faker.name().fullName());
+            c.setCorreo(faker.internet().emailAddress());
+            c.setRun(faker.number().numberBetween(1000, 10000));
+            c.setTelefono(faker.number().numberBetween(10000, 1000000));
+            clientes.add(clienterepository.save(c));
+        }
+        return clientes;
+    }
+    
+    private void crearDireccionesClientes(Faker faker, List<Cliente> clientes) {
+        for (Cliente cliente : clientes) {
+            DireccionCliente dir = new DireccionCliente();
+            dir.setCalle(faker.address().streetAddress());
+            dir.setCiudad(faker.address().city());
+            dir.setRegion(faker.address().state());
+            DireccionCliente saved = direccionrepository.save(dir);
+            cliente.setDireccion(saved); // Establece la relación inversa
+            clienterepository.save(cliente);
+        }
+    }
+    
+    private void crearDireccionesEmpleados(Faker faker, List<Empleado> empleados) {
+        for (Empleado empleado : empleados) {
+            DireccionEmpleado dir = new DireccionEmpleado();
+            dir.setCalle(faker.address().streetAddress());
+            dir.setCiudad(faker.address().city());
+            dir.setRegion(faker.address().state());
+            
+            DireccionEmpleado saved = direccionrepository.save(dir);
+            empleado.setDireccion(saved);
+            empleadorepository.save(empleado);
+        }
+    }
+    
+    private void crearDireccionesTiendas(Faker faker, List<Tienda> tiendas) {
+        for (Tienda tienda : tiendas) {
+            DireccionTienda dir = new DireccionTienda();
+            dir.setCalle(faker.address().streetAddress());
+            dir.setCiudad(faker.address().city());
+            dir.setRegion(faker.address().state());
+            
+            DireccionTienda saved = direccionrepository.save(dir);
+            tienda.setDireccion(saved);
+            tiendarepository.save(tienda);
+        }
+    }
+
+    private List<Categorias> crearCategorias(Faker faker, int cantidad) {
+    List<Categorias> categorias = new ArrayList<>();
+    Set<String> nombresUnicos = new HashSet<>();
+    
+      while (categorias.size() < cantidad) {
+          Categorias cat = new Categorias();
+          String nombre;
+          do {
+              nombre = faker.commerce().department();
+          } while (nombresUnicos.contains(nombre));
+          
+          nombresUnicos.add(nombre);
+          cat.setNombre(nombre);
+          cat.setDescripcion(faker.lorem().sentence());
+          
+          categorias.add(categoriasrepository.save(cat));
+      }
+      return categorias;
+   }
+
+   private List<Proveedores> crearProveedores(Faker faker, int cantidad) {
+    List<Proveedores> proveedores = new ArrayList<>();
+    
+    for (int i = 0; i < cantidad; i++) {
+        Proveedores prov = new Proveedores();
+        prov.setNombre(faker.company().name());
+        prov.setTelefono(faker.number().numberBetween(900_000_000, 999_999_999));
+        
+        proveedores.add(proveedoresrepository.save(prov));
+    }
+    return proveedores;
+  }
+
+
+  private List<Producto> crearProductos(Faker faker, int cantidad, List<Categorias> categorias, List<Proveedores> proveedores) {
+    List<Producto> productos = new ArrayList<>();
+    Random random = new Random();
+    
+    for (int i = 0; i < cantidad; i++) {
+        Producto prod = new Producto();
+        prod.setNombre(faker.commerce().productName());
+        prod.setMarca(faker.company().name());
+        
+        // Asignar categoría y proveedor aleatorios
+        prod.setCategoria(categorias.get(random.nextInt(categorias.size())));
+        prod.setProveedor(proveedores.get(random.nextInt(proveedores.size())));
+        
+        productos.add(productorepository.save(prod));
+    }
+    return productos;
+  }
+
+  private void crearInventarios(Faker faker, List<Producto> productos, List<Tienda> tiendas) {
+    Random random = new Random();
+    
+      for (Tienda tienda : tiendas) {
+          for (Producto producto : productos) {
+              // 70% de probabilidad de que un producto esté en una tienda
+              if (random.nextDouble() < 0.7) {
+                  InventarioTienda inv = new InventarioTienda();
+                  inv.setProducto(producto);
+                  inv.setTienda(tienda);
+                  inv.setStock(random.nextInt(100) + 10); // Stock entre 10-110
+                  inv.setPrecioLocal(random.nextInt(50000) + 5000); // Precio entre $5.000-$55.000
+                  
+                  inventariotiendarepository.save(inv);
+              }
+          }
+      }
+  }
+
+
+
+    private List<Venta> crearVentas(Faker faker, int cantidad, List<Cliente> clientes, List<Producto> productos) {
+      List<Venta> ventas = new ArrayList<>();
+      Random random = new Random();
+      
+      for (int i = 0; i < cantidad; i++) {
+          Venta venta = new Venta();
+          venta.setCliente(clientes.get(random.nextInt(clientes.size())));
+          
+          // Calcular monto basado en productos (simulado)
+          int numProductos = random.nextInt(5) + 1; // 1-5 productos
+          int monto = 0;
+          for (int j = 0; j < numProductos; j++) {
+              monto += random.nextInt(20000) + 5000; // $5.000-$25.000 por producto
+          }
+          venta.setMonto(monto);
+          
+          ventas.add(ventarepository.save(venta));
+      }
+      return ventas;
+  }
+
+      private void crearEnvios(Faker faker, List<Venta> ventas) {
+        for (Venta venta : ventas) {
+            // 60% de probabilidad de que una venta tenga envío
+            if (new Random().nextDouble() < 0.6) {
+                Envio envio = new Envio();
+                envio.setVenta(venta);
+                envio.setFecha_Creacion_Envio(LocalDateTime.now()
+                    .minusDays(new Random().nextInt(30))); // Envíos de hasta 30 días atrás
+                envio.setDireccion(faker.address().fullAddress());
+                
+                enviorepository.save(envio);
+            }
+        }
+      }
+}  
+  
+
+
+
+
+
+
+
+
+/*      
+
+
     Set<String> generosUnicos = new HashSet<>();
     String tiendacorreo = "EcoMarket@HardBoiledEgg.cl";
     while (generosUnicos.size() < 3) {
@@ -144,15 +366,7 @@ public class DataLoader implements CommandLineRunner{
           inventarioTienda.setStock(faker.number().numberBetween(1, 150));
           inventarioTienda.setTienda(tienda);
 
-          for (int a = 0; h<3; a++){
-            
-            Direccion direccion = new Direccion();
-            direccion.setCalle(faker.location().publicSpace());
-            direccion.setCiudad(faker.country().capital());
-
-
-
-          }
+          
 
         }
 
@@ -172,7 +386,6 @@ public class DataLoader implements CommandLineRunner{
 
 
 }
-}
 
 
 
@@ -180,7 +393,7 @@ public class DataLoader implements CommandLineRunner{
 
 
 
-/*      
+
       for (int m = 0; m < 3; m++){
         Proveedores proveedores = new Proveedores();
         proveedores.setId(m+1);
