@@ -43,7 +43,7 @@ public class direccionController {
     }
      
     @PostMapping("/add")
-    public ResponseEntity<Direccion> creaVenta(@RequestBody Direccion direccion){
+    public ResponseEntity<Direccion> creaDireccion(@RequestBody Direccion direccion){
         return ResponseEntity.ok(direccionService.createDireccion(direccion));
     }    
     
@@ -66,10 +66,15 @@ public class direccionController {
         } 
     }
 
+    //http://localhost:8080/api/direccion/clientes?clienteId=6&type=CLIENTE EJEMPLO DE URL
     @PostMapping("/clientes")
     public DireccionCliente createDireccionCliente(
             @RequestBody DireccionCliente direccion,
             @RequestParam Integer clienteId) {
         return direccionService.crearDireccionCliente(direccion, clienteId);
+    }
+    @GetMapping("/clientes")
+    public List<DireccionCliente> getAllDireccionesCliente() {
+        return direccionService.findAllDireccionesCliente();
     }
 }

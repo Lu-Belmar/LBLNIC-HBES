@@ -77,7 +77,8 @@ public class DataLoader implements CommandLineRunner{
         List<Proveedores> proveedores = crearProveedores(faker, 8);
         List<Producto> productos = crearProductos(faker, 20, categorias, proveedores);
         crearInventarios(faker, productos, tiendas);
-        List<Venta> ventas = crearVentas(faker, 50, clientes, productos);
+        List<InventarioTienda> inventarios = inventariotiendarepository.findAll();
+        List<Venta> ventas = crearVentas(faker, 50, clientes, productos,inventarios);
         crearEnvios(faker, ventas);
 
 
@@ -239,13 +240,17 @@ public class DataLoader implements CommandLineRunner{
 
 
 
-    private List<Venta> crearVentas(Faker faker, int cantidad, List<Cliente> clientes, List<Producto> productos) {
+    private List<Venta> crearVentas(Faker faker, int cantidad, List<Cliente> clientes, List<Producto> productos, List<InventarioTienda> inventarios) {
       List<Venta> ventas = new ArrayList<>();
       Random random = new Random();
       
       for (int i = 0; i < cantidad; i++) {
           Venta venta = new Venta();
           venta.setCliente(clientes.get(random.nextInt(clientes.size())));
+          InventarioTienda inventario;
+        do {
+            inventario = inventarios.get(random.nextInt(inventarios.size()));
+        } while (ventarepository.existsByInventario(inventario));
           
           // Calcular monto basado en productos (simulado)
           int numProductos = random.nextInt(5) + 1; // 1-5 productos
@@ -254,7 +259,7 @@ public class DataLoader implements CommandLineRunner{
               monto += random.nextInt(20000) + 5000; // $5.000-$25.000 por producto
           }
           venta.setMonto(monto);
-          
+          venta.setInventarioTienda(inventario);
           ventas.add(ventarepository.save(venta));
       }
       return ventas;

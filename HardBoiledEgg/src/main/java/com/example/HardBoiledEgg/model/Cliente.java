@@ -41,6 +41,6 @@ public class Cliente extends Usuario {
     private Direccion direccion;
 
     @OneToMany(mappedBy = "cliente")
-
+    @JsonManagedReference
     private List<Venta> ventas;
 }

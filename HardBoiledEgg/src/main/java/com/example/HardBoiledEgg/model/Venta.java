@@ -9,7 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,9 +30,13 @@ public class Venta {
     @Column(name = "monto", nullable = false)
     private int monto;
 
+    @OneToOne
+    @JoinColumn
+    private InventarioTienda inventarioTienda;
+    
     @ManyToOne
     @JoinColumn(name = "id_cliente")
-
+    @JsonBackReference
     private Cliente cliente;
 }
  
