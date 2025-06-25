@@ -58,17 +58,22 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+				<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>net.datafaker</groupId>
 			<artifactId>datafaker</artifactId>
 			<version>2.4.2</version>
 		</dependency>
-			</dependencies>
-			<dependency>
-			<groupId>net.datafaker</groupId>
-			<artifactId>datafaker</artifactId>
-			<version>2.3.0</version> <!-- O la versión que te haya especificado tu profesor si es diferente -->
-		</dependency>
+
 
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -80,6 +85,7 @@
 
 
 
+	</dependencies>
 
 	<build>
 		<plugins>
