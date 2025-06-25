@@ -53,7 +53,7 @@ public class ProveedoresServiceTest {
 
     // ---- Tests para getCategorias() ----
     @Test
-    public void whenGetAllProveedores_thenReturnList() {
+    public void testFindAll() {
         log.info("Test: Obtener todas los proveedores");
         
         Proveedores proveedores1 = new Proveedores(1, "Electrónicos", 191919, null);
@@ -71,7 +71,7 @@ public class ProveedoresServiceTest {
 
     // ---- Tests para getCategoriasById() ----
     @Test
-    public void whenValidId_thenReturnProveedores() {
+    public void ProveedoresIdValida() {
         log.info("Test: Obtener categoría por ID válido");
         
         Proveedores proveedor = new Proveedores(1, "Electrónicos", 191919,null);
@@ -86,7 +86,7 @@ public class ProveedoresServiceTest {
     }
 
     @Test
-    public void whenInvalidId_thenReturnNull() {
+    public void ProveedoresIdNoValida() {
         log.info("Test: Obtener categoría con ID inválido");
         
         when(proveedoresRepository.findById(99)).thenReturn(Optional.empty());
@@ -100,7 +100,7 @@ public class ProveedoresServiceTest {
 
     // ---- Tests para createCategorias() ----
     @Test
-    public void whenCreateCategoria_thenReturnSavedProveedores() {
+    public void ProveedoresCreado() {
         log.info("Test: Crear nueva categoría");
         
         Proveedores newProveedores = new Proveedores(null, "Alimentos", 191919, null);
@@ -118,7 +118,7 @@ public class ProveedoresServiceTest {
 
     // ---- Tests para updateCategorias() ----
     @Test
-    public void whenUpdateExistingProveedores_thenReturnUpdated() {
+    public void SiExisteActualizarProveedores() {
         log.info("Test: Actualizar categoría existente");
         
         Proveedores existing = new Proveedores(1, "Electrónicos", 1234, null);
@@ -136,7 +136,7 @@ public class ProveedoresServiceTest {
     }
 
     @Test
-    public void whenUpdateNonExistingProveedores_thenReturnNull() {
+    public void SiNoExisteNoActualizarProveedores() {
         log.info("Test: Actualizar categoría inexistente");
         
         Proveedores data = new Proveedores(99, "Inexistente", 87654, null);
@@ -151,7 +151,7 @@ public class ProveedoresServiceTest {
 
     // ---- Tests para deleteCategorias() ----
     @Test
-    public void whenDeleteExistingProveedores_thenNoException() {
+    public void SiExisteEliminarProveedores() {
         log.info("Test: Eliminar categoría existente");
         int id = 1;
         
@@ -163,7 +163,7 @@ public class ProveedoresServiceTest {
     }
 
     @Test
-    public void SiNoExisteLanzarErrorAlEliminarEnvio() {
+    public void SiNoExisteLanzarErrorAlEliminarProveedores() {
         int nonExistentId = 999;
         log.info("Configurando test para eliminar envío con ID inexistente: {}", nonExistentId);
 
