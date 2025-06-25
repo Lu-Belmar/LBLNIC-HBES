@@ -52,7 +52,7 @@ public class DataLoader implements CommandLineRunner {
         // 3. Inventarios que dependen de Productos y Tiendas
         crearInventarios(faker, productos, tiendas);
 
-        // 4. Ventas que dependen de Clientes e Inventarios
+        // 4. Ventas que dep  enden de Clientes e Inventarios
         List<InventarioTienda> inventarios = inventariotiendarepository.findAll();
         List<Venta> ventas = crearVentas(faker, 50, clientes, inventarios);
 

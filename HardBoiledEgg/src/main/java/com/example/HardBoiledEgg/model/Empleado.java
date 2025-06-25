@@ -1,5 +1,8 @@
 package com.example.HardBoiledEgg.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
@@ -35,7 +38,8 @@ public class Empleado extends Usuario {
     @Column(nullable = false)
     private Integer Salario;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "direccion_id")
-    private Direccion direccion;
+    @JsonIgnoreProperties("Empleado")
+    private DireccionEmpleado direccion;
 }

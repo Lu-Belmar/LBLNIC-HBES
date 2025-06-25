@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.HardBoiledEgg.model.Direccion;
 import com.example.HardBoiledEgg.model.DireccionCliente;
+import com.example.HardBoiledEgg.model.DireccionEmpleado;
 import com.example.HardBoiledEgg.service.direccionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
