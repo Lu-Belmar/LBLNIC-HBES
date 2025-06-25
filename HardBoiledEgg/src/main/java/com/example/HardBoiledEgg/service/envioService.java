@@ -23,11 +23,7 @@ public class envioService {
     }
 
     public Envio getEnvioById(Integer id){
-        if (envioRepository.findById(id).isPresent()) {
-            return envioRepository.findById(id).get();
-        } else {
-            return null;
-        }  
+        return envioRepository.findById(id).orElse(null);
     }
 
 
