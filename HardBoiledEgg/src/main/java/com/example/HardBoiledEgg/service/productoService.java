@@ -23,11 +23,7 @@ public class productoService {
     }
 
     public Producto getProductoById(int id){
-        if (productorepository.findById(id).isPresent()) {
-            return productorepository.findById(id).get();
-        } else {
-            return null;
-        }
+        return productorepository.findById(id).orElse(null);
     }
 
     public Producto createProducto(Producto producto){
@@ -35,14 +31,28 @@ public class productoService {
 
     }
 
-    public Producto updateProducto(Producto producto, Integer id){
-        
-        if (productorepository.existsById(id)){
-            productorepository.save(producto);
-            return productorepository.getReferenceById(id);
-        } else {
-            return null;
+    @Transactional
+    public Producto updateProducto(Producto updatedData, Integer id) {
+        if (productorepository.existsById(id)) {
+            Producto existing = productorepository.getReferenceById(id);
+            if (updatedData.getNombre() != null) {
+                existing.setNombre(updatedData.getNombre());
+            }
+            if (updatedData.getMarca() != null) {
+                existing.setMarca(updatedData.getMarca());
+            }
+            if (updatedData.getCategoria() != null) {
+                existing.setCategoria(updatedData.getCategoria());
+            }
+            if (updatedData.getInventario() != null) {
+                existing.setInventario(updatedData.getInventario());
+            }
+            if (updatedData.getProveedor() != null) {
+                existing.setProveedor(updatedData.getProveedor());
+            }
+            return productorepository.save(existing);
         }
+        return null;
     }
 
     public void deleteProducto(int id){

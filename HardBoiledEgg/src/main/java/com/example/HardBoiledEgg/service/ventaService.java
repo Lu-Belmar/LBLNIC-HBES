@@ -16,18 +16,13 @@ public class ventaService {
 
     @Autowired
     private ventaRepository ventaRepository;
-    private inventariotiendaService inventariotiendaService;
 
     public List<Venta> getVentas(){
         return ventaRepository.findAll();
     }
 
     public Venta getVentaById(Integer id){
-        if (ventaRepository.findById(id).isPresent()) {
-            return ventaRepository.findById(id).get();
-        } else {
-            return null;
-        }
+        return ventaRepository.findById(id).orElse(null);
     } 
 
     //;eter la lógica pa que reste el inventario al hacer ventas 

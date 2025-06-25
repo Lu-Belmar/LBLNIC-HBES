@@ -26,11 +26,7 @@ public class inventariotiendaService {
     }
 
     public InventarioTienda getInventarioTiendaById(Integer id){
-        if (inventariotiendarepository.findById(id).isPresent()) {
-            return inventariotiendarepository.findById(id).get();
-        } else {
-            return null;
-        }  
+        return inventariotiendarepository.findById(id).orElse(null);  
     }
 
     public InventarioTienda createInventarioTienda(InventarioTienda inventariotienda){
