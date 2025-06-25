@@ -30,10 +30,10 @@ public class InventarioTienda {
     private Integer id;
 
     @Column(nullable = false)
-    private int stock;
+    private Integer stock;
 
     @Column(nullable = false)
-    private int precioLocal;
+    private Integer precioLocal;
 
     @ManyToOne
     @JoinColumn(name = "producto_id")

@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Cliente")
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper=true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

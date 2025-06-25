@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.HardBoiledEgg.model.InventarioTienda;
 import com.example.HardBoiledEgg.model.Producto;
 import com.example.HardBoiledEgg.repository.inventariotiendaRepository;
+import com.example.HardBoiledEgg.repository.tiendaRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -34,14 +35,31 @@ public class inventariotiendaService {
 
     }
 
-    public InventarioTienda updateInventarioTienda(InventarioTienda inventariotienda, Integer id){
-        
-        if (inventariotiendarepository.existsById(id)){
-            inventariotiendarepository.save(inventariotienda);
-            return inventariotiendarepository.getReferenceById(id);
-        } else {
-            return null;
+    @Transactional
+    public InventarioTienda updateInventarioTienda(InventarioTienda updatedData, Integer id){
+        if (inventariotiendarepository.existsById(id)) {
+            InventarioTienda existing = inventariotiendarepository.getReferenceById(id);
+            if (updatedData.getId() != null) {
+                existing.setId(updatedData.getId());
+            }
+            if (updatedData.getPrecioLocal() != null) {
+                existing.setPrecioLocal(updatedData.getPrecioLocal());
+            }
+            if (updatedData.getProducto() != null) {
+                existing.setProducto(updatedData.getProducto());
+            }
+            if (updatedData.getStock() != null) {
+                existing.setStock(updatedData.getStock());
+            }
+            if (updatedData.getTienda() != null) {
+                existing.setTienda(updatedData.getTienda());
+            }
+            if (updatedData.getVenta() != null) {
+                existing.setVenta(updatedData.getVenta());
+            }
+            return inventariotiendarepository.save(existing);
         }
+        return null;
     }
 
     public void deleteInventarioTienda(int id){

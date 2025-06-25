@@ -30,7 +30,7 @@ public class Venta {
     private Integer id;
 
     @Column(name = "monto", nullable = false)
-    private int monto;
+    private Integer monto;
 
     @OneToOne
     @JoinColumn(name = "inventario_id")

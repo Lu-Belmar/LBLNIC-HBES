@@ -26,6 +26,4 @@ public abstract class Usuario {
 
     @Column(unique = true, length = 11, nullable = true)
     private Integer telefono;
-
-
 }

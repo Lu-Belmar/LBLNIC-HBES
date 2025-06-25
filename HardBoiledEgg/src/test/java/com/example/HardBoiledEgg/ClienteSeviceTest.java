@@ -41,7 +41,7 @@ public class ClienteSeviceTest {
     private clienteRepository clienteRepository;
 
 @Test
-public void whenGetAllClientes_thenReturnList() {
+public void testFindAll() {
     log.info("Test: Obtener todas los Clientes");
     
     Cliente cliente1 = new Cliente(1,null, null);
@@ -57,9 +57,8 @@ public void whenGetAllClientes_thenReturnList() {
     log.info("Resultado: {} clientes obtenidos", result.size());
 }
 
-// ---- Tests para getClienteById() ----
 @Test
-public void whenValidId_thenReturnCliente() {
+public void ClienteIdValida() {
     log.info("Test: Obtener cliente por ID válido");
     
     Cliente cliente = new Cliente(1,null, null);
@@ -74,7 +73,7 @@ public void whenValidId_thenReturnCliente() {
 }
 
 @Test
-public void whenInvalidId_thenReturnNull() {
+public void ClienteIdNoValida() {
     log.info("Test: Obtener cliente con ID inválido");
     
     when(clienteRepository.findById(99)).thenReturn(Optional.empty());
@@ -88,7 +87,7 @@ public void whenInvalidId_thenReturnNull() {
 
 // ---- Tests para createCliente() ----
 @Test
-public void whenCreateCliente_thenReturnSavedCliente() {
+public void ClienteCreado() {
     log.info("Test: Crear nuevo cliente");
     
     Cliente newCliente = new Cliente(1,null, null);
@@ -106,7 +105,7 @@ public void whenCreateCliente_thenReturnSavedCliente() {
 
 // ---- Tests para updateCliente() ----
 @Test
-public void whenUpdateExistingCliente_thenReturnUpdated() {
+public void SiExisteActualizarCliente() {
     log.info("Test: Actualizar Cliente existente");
     
     Cliente existing = new Cliente(1,null, null);
@@ -124,7 +123,7 @@ public void whenUpdateExistingCliente_thenReturnUpdated() {
 }
 
 @Test
-public void whenUpdateNonExistingCliente_thenReturnNull() {
+public void SiNoExisteNoActualizarCliente() {
     log.info("Test: Actualizar cliente inexistente");
     
     Cliente data = new Cliente(1,null, null);
@@ -139,7 +138,7 @@ public void whenUpdateNonExistingCliente_thenReturnNull() {
 
 // ---- Tests para deleteCliente() ----
 @Test
-public void whenDeleteExistingCliente_thenNoException() {
+public void SiExisteEliminarCliente() {
     log.info("Test: Eliminar cliente existente");
     int id = 1;
     

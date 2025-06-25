@@ -1,5 +1,4 @@
 package com.example.HardBoiledEgg;
-
 import com.example.HardBoiledEgg.model.*;
 import com.example.HardBoiledEgg.repository.*;
 import net.datafaker.Faker;
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Profile("dev") // Se ejecutará solo en el perfil de desarrollo
+@Profile("dev")
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -36,26 +35,19 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("====== DATALOADER: Iniciando la carga de datos de prueba... ======");
         Faker faker = new Faker();
 
-
         List<Categorias> categorias = crearCategorias(faker, 5);
         List<Proveedores> proveedores = crearProveedores(faker, 8);
         List<Tienda> tiendas = crearTiendas(faker, 4);
         List<Cliente> clientes = crearClientes(faker, 15);
         List<Empleado> empleados = crearEmpleados(faker, 10);
-        
         List<Producto> productos = crearProductos(faker, 100, categorias, proveedores);
-
         crearInventarios(faker, productos, tiendas);
-
         List<InventarioTienda> inventarios = inventariotiendarepository.findAll();
-
         List<Venta> ventas = crearVentas(faker, 100, clientes, inventarios);
         crearEnvios(faker, ventas);   
-
         crearDireccionesClientes(faker, clientes);
         crearDireccionesEmpleados(faker, empleados);
         crearDireccionesTiendas(faker, tiendas);
-        
         System.out.println("====== DATALOADER COMPLETE: La base de datos ha sido poblada con datos de prueba. ======");
     }
 
