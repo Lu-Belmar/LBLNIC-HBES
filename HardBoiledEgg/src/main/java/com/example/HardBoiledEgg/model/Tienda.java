@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,9 +36,9 @@ public class Tienda {
     @Column(nullable = false)
     private String correo;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "direccion_id")
-    private Direccion direccion;
+    private DireccionTienda direccion;
 
     @OneToMany(mappedBy = "tienda")
     @JsonManagedReference

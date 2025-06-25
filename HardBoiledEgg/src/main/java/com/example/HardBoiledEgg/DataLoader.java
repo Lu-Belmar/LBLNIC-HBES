@@ -71,7 +71,6 @@ public class DataLoader implements CommandLineRunner{
     Faker faker = new Faker();
     Random random = new Random();
 
-            // CREACION DE ENTIDADES
         List<Cliente> clientes = crearClientes(faker, 5);
         List<Empleado> empleados = crearEmpleados(faker, 5);
         List<Tienda> tiendas = crearTiendas(faker, 4);
@@ -81,11 +80,8 @@ public class DataLoader implements CommandLineRunner{
         crearInventarios(faker, productos, tiendas);
         List<InventarioTienda> inventarios = inventariotiendarepository.findAll();
         List<Venta> ventas = crearVentas(faker, 100, clientes, inventarios);
-        crearEnvios(faker, ventas);
+        crearEnvios(faker, ventas);   
 
-
-        
-        // SECCION DE DIRECCIONES
         crearDireccionesClientes(faker, clientes);
         crearDireccionesEmpleados(faker, empleados);
         crearDireccionesTiendas(faker, tiendas);
