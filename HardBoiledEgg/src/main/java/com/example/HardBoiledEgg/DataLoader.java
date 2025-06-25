@@ -28,7 +28,6 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Si la base de datos ya tiene datos, no hacer nada.
         if (tiendarepository.count() > 0) {
             System.out.println("====== DATALOADER: La base de datos ya contiene datos. No se generarán nuevos datos. ======");
             return;
@@ -44,19 +43,14 @@ public class DataLoader implements CommandLineRunner {
         List<Cliente> clientes = crearClientes(faker, 15);
         List<Empleado> empleados = crearEmpleados(faker, 10);
         
-        // 2. Productos que dependen de Categorías y Proveedores
         List<Producto> productos = crearProductos(faker, 100, categorias, proveedores);
 
-        // 3. Inventarios que dependen de Productos y Tiendas
         crearInventarios(faker, productos, tiendas);
 
-        // 4. Ventas que dep  enden de Clientes e Inventarios
         List<InventarioTienda> inventarios = inventariotiendarepository.findAll();
 
         List<Venta> ventas = crearVentas(faker, 100, clientes, inventarios);
         crearEnvios(faker, ventas);   
-
-        // 6. Direcciones (se crean y se asignan al final)
 
         crearDireccionesClientes(faker, clientes);
         crearDireccionesEmpleados(faker, empleados);
@@ -186,7 +180,7 @@ public class DataLoader implements CommandLineRunner {
         Random random = new Random();
         for (Tienda tienda : tiendas) {
             for (Producto producto : productos) {
-                if (random.nextDouble() < 0.7) { // 70% de probabilidad de que un producto esté en una tienda
+                if (random.nextDouble() < 0.7) {
                     InventarioTienda inv = new InventarioTienda();
                     inv.setProducto(producto);
                     inv.setTienda(tienda);
@@ -201,14 +195,13 @@ public class DataLoader implements CommandLineRunner {
     private List<Venta> crearVentas(Faker faker, int cantidad, List<Cliente> clientes, List<InventarioTienda> todosInventarios) {
         List<Venta> ventas = new ArrayList<>();
         Random random = new Random();
-        // Filtramos solo los inventarios que no han sido vendidos
         List<InventarioTienda> inventariosDisponibles = todosInventarios.stream()
             .filter(inv -> !ventarepository.existsByInventario(inv))
             .collect(Collectors.toList());
 
         if (inventariosDisponibles.isEmpty() || inventariosDisponibles.size() < cantidad) {
             System.out.println("ADVERTENCIA: No hay suficientes inventarios disponibles para crear la cantidad deseada de ventas.");
-            return ventas; // Retorna lista vacía si no hay inventario
+            return ventas;
         }
         
         Collections.shuffle(inventariosDisponibles);
@@ -220,10 +213,9 @@ public class DataLoader implements CommandLineRunner {
             InventarioTienda inventario = inventariosDisponibles.get(i);
             venta.setInventario(inventario);
             
-            int cantidadProductos = random.nextInt(5) + 1; // Simula una venta de 1 a 5 unidades del mismo producto
+            int cantidadProductos = random.nextInt(5) + 1;
             venta.setMonto(inventario.getPrecioLocal() * cantidadProductos);
 
-            // Guardamos la venta primero
             ventas.add(ventarepository.save(venta));
         }
         return ventas;
@@ -232,7 +224,7 @@ public class DataLoader implements CommandLineRunner {
     private void crearEnvios(Faker faker, List<Venta> ventas) {
         Random random = new Random();
         for (Venta venta : ventas) {
-            if (random.nextDouble() < 0.6) { // 60% de probabilidad de que una venta tenga envío
+            if (random.nextDouble() < 0.6) {
                 Envio envio = new Envio();
                 envio.setVenta(venta);
                 envio.setFecha_Creacion_Envio(LocalDateTime.now().minusDays(random.nextInt(30)));
