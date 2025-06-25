@@ -6,39 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-
-
 import com.example.HardBoiledEgg.model.Tienda;
-
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
-
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
-
-
-
 import com.example.HardBoiledEgg.repository.tiendaRepository;
-
 import com.example.HardBoiledEgg.service.tiendaService;
-
 import lombok.extern.slf4j.Slf4j;
-
-
 
 @SpringBootTest
 @ActiveProfiles("test")
 @Slf4j
 public class TiendaServiceTest {
     @Autowired
-    private tiendaRepository tiendaRepository;
+    private tiendaService tiendaService;
 
     @MockitoBean
-    private tiendaService tiendaService;
+    private tiendaRepository tiendaRepository;
 
     // ---- Tests para getCategorias() ----
     @Test
@@ -70,7 +56,7 @@ public class TiendaServiceTest {
         Tienda result = tiendaService.getTiendaById(1);
         
         assertNotNull(result);
-        assertEquals("dfsdfsfs", result.getDireccion());
+        assertEquals("dfsdfsfs", result.getCorreo());
         verify(tiendaRepository, times(1)).findById(1);
     }
 
@@ -152,7 +138,7 @@ public class TiendaServiceTest {
     }
 
     @Test
-    public void SiNoExisteLanzarErrorAlEliminarEnvio() {
+    public void SiNoExisteLanzarErrorAlEliminarTienda() {
         int nonExistentId = 999;
         log.info("Configurando test para eliminar envío con ID inexistente: {}", nonExistentId);
 
