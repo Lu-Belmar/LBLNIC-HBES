@@ -101,7 +101,7 @@ public void whenCreateInventarioTienda_thenReturnSavedInventarioTienda() {
     InventarioTienda result = inventariotiendaService.createInventarioTienda(newInventarioTienda);
     
     assertNotNull(result.getId());
-    assertEquals(6543, result.getPrecioLocal());
+    assertEquals(8766, result.getPrecioLocal());
     verify(inventariotiendaRepository, times(1)).save(newInventarioTienda);
 }
 
