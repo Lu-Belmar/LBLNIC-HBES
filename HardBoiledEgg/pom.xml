@@ -63,19 +63,17 @@
 			<artifactId>datafaker</artifactId>
 			<version>2.4.2</version>
 		</dependency>
-			</dependencies>
-			<dependency>
-			<groupId>net.datafaker</groupId>
-			<artifactId>datafaker</artifactId>
-			<version>2.3.0</version> <!-- O la versión que te haya especificado tu profesor si es diferente -->
-		</dependency>
-
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.6.0</version>
 		</dependency>
-
+	    <dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+				<version>2.6.0</version> <!-- Use the latest stable version -->
+   		</dependency>
+	</dependencies>
 
 
 
