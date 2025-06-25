@@ -37,10 +37,6 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("====== DATALOADER: Iniciando la carga de datos de prueba... ======");
         Faker faker = new Faker();
 
-        // --- CREACIÓN DE ENTIDADES EN ORDEN LÓGICO ---
-        List<Cliente> clientes = crearClientes(faker, 5);
-        List<Empleado> empleados = crearEmpleados(faker, 5);
-        List<Tienda> tiendas = crearTiendas(faker, 4);
 
         List<Categorias> categorias = crearCategorias(faker, 5);
         List<Proveedores> proveedores = crearProveedores(faker, 8);
