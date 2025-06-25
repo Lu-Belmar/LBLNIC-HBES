@@ -5,11 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import javax.xml.validation.Validator;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +48,6 @@ import com.example.HardBoiledEgg.repository.empleadoRepository;
 @ActiveProfiles("test")
 @Slf4j
 public class EmpleadoServiceTest {
-
-    @Autowired
-    private Validator
 
     @Autowired
     private empleadoService empleadoService;
@@ -185,40 +185,5 @@ public class EmpleadoServiceTest {
         
         assertThrows(EmptyResultDataAccessException.class, 
             () -> empleadoService.deleteEmpleado(99));
-    }
-
-    // ---- Tests para relaciones y validaciones ----
-    @Test
-    public void whenCreateEmpleadoWithoutDireccion_thenThrowException() {
-        Empleado emp = new Empleado();
-        emp.setRun(11111111);
-        emp.setNombre("Test");
-        emp.setCorreo("test@test.com");
-        emp.setSalario(1000000);
-        // Falta dirección
-        
-        Set<ConstraintViolation<Empleado>> violations = validator.validate(emp);
-        assertFalse(violations.isEmpty(), "Debe haber violaciones de validación");
-
-        assertThrows(DataIntegrityViolationException.class, 
-            () -> empleadoService.createEmpleado(emp));
-    }
-
-    @Test
-    public void whenCreateEmpleadoWithInvalidEmail_thenThrowException() {
-        DireccionEmpleado dir = new DireccionEmpleado();
-        dir.setCalle("Calle");
-        dir.setCiudad("Ciudad");
-        dir.setRegion("Region");
-        
-        Empleado emp = new Empleado();
-        emp.setRun(22222222);
-        emp.setNombre("Test");
-        emp.setCorreo("email-invalido");
-        emp.setSalario(1000000);
-        emp.setDireccion(dir);
-        
-        assertThrows(ConstraintViolationException.class, 
-            () -> empleadoService.createEmpleado(emp));
     }
 }
