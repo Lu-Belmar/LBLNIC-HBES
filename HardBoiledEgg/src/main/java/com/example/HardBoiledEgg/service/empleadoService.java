@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.HardBoiledEgg.model.Empleado;
+import com.example.HardBoiledEgg.model.Producto;
 import com.example.HardBoiledEgg.repository.empleadoRepository;
 
 import jakarta.transaction.Transactional;
@@ -30,14 +31,34 @@ public class empleadoService {
 
     }
 
-    public Empleado updateEmpleado(Empleado empleado, Integer id){
-        
-        if (empleadorepository.existsById(id)){
-            empleadorepository.save(empleado);
-            return empleadorepository.getReferenceById(id);
-        } else {
-            return null;
+    @Transactional
+    public Empleado updateEmpleado(Empleado updatedData, Integer id) {
+        if (empleadorepository.existsById(id)) {
+            Empleado existing = empleadorepository.getReferenceById(id);
+            if (updatedData.getNombre() != null) {
+                existing.setNombre(updatedData.getNombre());
+            }
+            if (updatedData.getCorreo() != null) {
+                existing.setCorreo(updatedData.getCorreo());
+            }
+            if (updatedData.getDireccion() != null) {
+                existing.setDireccion(updatedData.getDireccion());
+            }
+            if (updatedData.getId() != null) {
+                existing.setId(updatedData.getId());
+            }
+            if (updatedData.getRun() != null) {
+                existing.setRun(updatedData.getRun());
+            }
+            if (updatedData.getSalario() != null) {
+                existing.setSalario(updatedData.getSalario());
+            }
+            if (updatedData.getTelefono() != null) {
+                existing.setTelefono(updatedData.getTelefono());
+            }
+            return empleadorepository.save(existing);
         }
+        return null;
     }
 
     public void deleteEmpleado(int id){
