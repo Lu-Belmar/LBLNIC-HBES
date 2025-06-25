@@ -43,7 +43,6 @@ public class ProductoServiceTest {
     @MockitoBean
     private categoriasRepository categoriasrepository;
 
-    // ---- Tests para createProducto ----
     @Test
     @Transactional
     public void whenCreateProducto_thenReturnSavedProducto() {

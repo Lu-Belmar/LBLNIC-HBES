@@ -66,7 +66,6 @@ public class CategoriasServiceTest {
         log.info("Resultado: {} categorías obtenidas", result.size());
     }
 
-    // ---- Tests para getCategoriasById() ----
     @Test
     public void whenValidId_thenReturnCategoria() {
         log.info("Test: Obtener categoría por ID válido");
@@ -95,7 +94,7 @@ public class CategoriasServiceTest {
         verify(categoriasRepository, times(1)).findById(99);
     }
 
-    // ---- Tests para createCategorias() ----
+
     @Test
     public void whenCreateCategoria_thenReturnSavedCategoria() {
         log.info("Test: Crear nueva categoría");
@@ -113,7 +112,6 @@ public class CategoriasServiceTest {
         verify(categoriasRepository, times(1)).save(newCategoria);
     }
 
-    // ---- Tests para updateCategorias() ----
     @Test
     public void whenUpdateExistingCategoria_thenReturnUpdated() {
         log.info("Test: Actualizar categoría existente");
@@ -146,7 +144,7 @@ public class CategoriasServiceTest {
         verify(categoriasRepository, never()).save(any());
     }
 
-    // ---- Tests para deleteCategorias() ----
+
     @Test
     public void whenDeleteExistingCategoria_thenNoException() {
         log.info("Test: Eliminar categoría existente");
