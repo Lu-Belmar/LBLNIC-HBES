@@ -11,6 +11,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
+import com.example.HardBoiledEgg.model.Categorias;
 import com.example.HardBoiledEgg.model.Direccion;
 import com.example.HardBoiledEgg.model.DireccionCliente;
 import com.example.HardBoiledEgg.model.Envio;
@@ -33,7 +34,7 @@ import com.example.HardBoiledEgg.service.envioService;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.example.HardBoiledEgg.repository.envioRepository;
+import com.example.HardBoiledEgg.repository.categoriasRepository;
 import com.example.HardBoiledEgg.service.categoriasService;
 
 @SpringBootTest
